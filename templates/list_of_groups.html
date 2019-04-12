@@ -1,0 +1,40 @@
+{% extends "base_generic.html" %}
+{% block title %}<title>Groups</title>{% endblock %}
+{% block content %}
+<h1>Groups List</h1>
+    {% if group_list %}
+        <form method="GET" action="" id="searchform">
+    <input class="searchfield" id="searchbox" name="q" type="text" value="{{ request.GET.q }}" placeholder="Search..."/>
+    <button class="btn btn-success", type="submit">Search</button>
+        </form>
+    <table class="table table-dark">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Name</th>
+      <th scope="col">Create</th>
+      <th scope="col">Edit</th>
+      <th scope="col">Delete</th>
+      <th scope="col">Description</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for group in group_list %}
+    <tr>
+      <th scope="row">{{ group.id }}</th>
+      <td>{{ group.name }}</td>
+      <td>{{ group.creating }}</td>
+      <td>{{ group.editing }}</td>
+      <td>{{ group.deleting }}</td>
+      <td>{{ group.description }}</td>
+      <td><a href="{% url 'group_edit' group.id %}">Edit</a>  <a href="{% url 'group_delete' group.id %}">Delete</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+    {% else %}
+      <p>There are no groups.</p>
+    {% endif %}
+
+{% endblock %}
